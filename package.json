@@ -1,0 +1,41 @@
+{
+  "name": "amazon-chime-sma-recording",
+  "version": "0.1.0",
+  "bin": {
+    "amazon-chime-sma-recording": "bin/amazon-chime-sma-recording.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.129.0",
+    "@types/node": "16.11.6",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "aws-cdk": "1.129.0",
+    "eslint": "^8.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-node": "^11.1.0",
+    "ts-node": "^10.4.0",
+    "typescript": "~4.4.4"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-events": "^1.129.0",
+    "@aws-cdk/aws-events-targets": "^1.129.0",
+    "@aws-cdk/aws-iam": "^1.129.0",
+    "@aws-cdk/aws-lambda": "^1.129.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.129.0",
+    "@aws-cdk/aws-lambda-python": "^1.129.0",
+    "@aws-cdk/aws-s3": "^1.129.0",
+    "@aws-cdk/aws-s3-deployment": "^1.129.0",
+    "@aws-cdk/aws-sns-subscriptions": "^1.129.0",
+    "@aws-cdk/aws-stepfunctions-tasks": "^1.129.0",
+    "@aws-cdk/core": "1.129.0",
+    "@aws-cdk/custom-resources": "^1.129.0",
+    "@aws-cdk/pipelines": "^1.129.0",
+    "cdk-ecr-deployment": "^0.0.80",
+    "source-map-support": "^0.5.20"
+  }
+}
