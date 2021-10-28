@@ -39,12 +39,16 @@ This demo will build and configure several services within AWS so that you can r
 
 ## Deployment
 
+Cloud 9 Deployment is recommend to ensure the correct build of the Docker containers.
+
 - Clone this repo: `git clone https://github.com/aws-samples/amazon-chime-sma-on-demand-recording`
 - `cd amazon-chime-sma-on-demand-recording`
 - `./deploy.sh`
 - Accept prompts for CDK deployment
 
 ### Cloud9 Deployment Instructions
+
+Expand the size of the EBS volume on your [Cloud9 with the script here](https://docs.aws.amazon.com/cloud9/latest/user-guide/move-environment.html)
 
 ```
 nvm install 12

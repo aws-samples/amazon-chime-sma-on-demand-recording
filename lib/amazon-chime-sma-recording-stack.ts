@@ -147,6 +147,7 @@ export class AmazonChimeSmaRecording extends cdk.Stack {
               resources: ["*"],
               actions: [
                 "chime:CreateSipRule",
+                "chime:UpdateSipRule",
                 "chime:GetPhoneNumberOrder",
                 "chime:CreateSipMediaApplication",
                 "chime:CreatePhoneNumberOrder",
