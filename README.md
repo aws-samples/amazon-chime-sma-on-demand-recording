@@ -20,6 +20,7 @@ This demo will build and configure several services within AWS so that you can r
 - outboundWav S3 Bucket - Used for Amazon Chime SIP media application wav files
 - recording S3 Bucket - Used for storage of raw recordings, transcriptions, and processed output
 - smaHandler Lambda - Lambda used by SIP media application to process calls
+- callRecords Table - DynamoDB Table for storing callRecords
 - SIP media application Resources
 - - Phone Number - a number that can be called by SourcePhone number to dial out to PSTN, or by PSTN to dial to SourcePhone
 - - SIP rule - a SIP media application rule that will trigger on the dialed number
@@ -47,6 +48,28 @@ This example application could be used by a jouralist to aid in interviewing peo
 
 ## How It Works
 
+### Call And Bridge
+
+When a new call is placed to the `recordingNumber`, a check is made to determine if it is from the `sourcePhoneNumber` or any other number. If it is from the `sourcePhoneNumber` the `smaHandler` will return an action back to the SIP media application to collect digits of the phone number to dial to. If the caller is any other number, the `smaHandler` will return an action to the SIP media application to play a series of wav files, and then `CallAndBridge` to the `sourcePhoneNumber`.
+
+```python
+def new_call_handler(call_id, to_number, from_number, direction):
+    if direction == "Outbound":
+        logger.info("INFO {} {}".format(log_prefix, "Call from source phone.  Getting digits to bridge call to."))
+        return respond(play_audio_and_get_digits(call_id))
+
+    else:
+        logger.info("INFO {} {}".format(log_prefix, "Call from unknown number.  Bridging to source phone."))
+        return respond(
+            play_this_call_is_being_recorded(call_id),
+            play_audio_leg_a("connectingYou.wav"),
+            call_and_bridge_to_pstn(from_number, source_phone),
+            receive_digits(call_id),
+        )
+```
+
+### Recording
+
 This application is comprosied of several components that work together without being strictly coupled to each other. The Amazon Chime SIP media application is the main entry point in either direction and will be used for the duration of the call. This SIP media application is controlled by the `smaHandler` Lambda function using an Invocation and Action response process described [here](https://docs.aws.amazon.com/chime/latest/dg/use-cases.html). All of the call routing logic is contained within this Lambda and makes use of the [`CallAndBridge action`](https://docs.aws.amazon.com/chime/latest/dg/call-and-bridge.html) to route calls from one user to another. This Lambda also starts the recording process by directing the output to an S3 bucket with the following action:
 
 ```
@@ -63,7 +86,11 @@ const startCallRecordingAction = {
   }
 ```
 
+In this example, both call legs are being recorded and the output is being send to the previously created `recordingBucket` with a `/originalAudio` prefix. This is the default prefix used by Amazon Transcribe Post Call Analytics demo.
+
 ### Pause, Resume, Stop Recordings
+
+The `smaHandler` also includes the ability to pause, resume, or stop the recording if the `sourcePhoneNumber` caller requests it. This will allow the owner of the number to control the recording. When the `smaHandler` Lambda is invoked with and `InvocationEventType` == `DIGITS_RECEIVED`, the below code will check to see if the invocation came from the `sourcePhoneNumber` and execute the approriate change to recording.
 
 ```python
     if from_number == source_phone:
@@ -98,8 +125,6 @@ const startCallRecordingAction = {
     else:
         return respond()
 ```
-
-The `smaHandler` also includes the ability to pause, resume, or stop the recording if the `sourcePhoneNumber` caller requests it. This will allow the owner of the number to control the recording. When the `smaHandler` Lambda is invoked with and `InvocationEventType` == `DIGITS_RECEIVED`, the above code will check to see if the invocation came from the `sourcePhoneNumber` and execute the approriate change to recording.
 
 ## Cleanup
 
