@@ -32,7 +32,15 @@ This demo will build and configure several services within AWS so that you can r
 - `yarn launch`
 - Accept prompts for CDK deployment and enter phone number to be used as the source phone number
 
-Additionally, a companion deployment can be used in conjunction with this demo. The [Amazon Transcribe Post Call Analytics](https://github.com/aws-samples/amazon-transcribe-post-call-analytics) demo includes an optional input S3 bucket parameter. To use these two demos together, simply use the ouput `recordingBucket` as the input bucket when deploying the Amazon Transcribe Post Call Analytics CloudFormation template and the output from this demo will feed into the input for that demo.
+All resources will be deployed in `us-east-1`.
+
+Additionally, a companion deployment can be used in conjunction with this demo. The [Amazon Transcribe Post Call Analytics](https://github.com/aws-samples/amazon-transcribe-post-call-analytics) demo includes an optional input S3 bucket parameter. To use these two demos together, simply use the ouput `recordingBucket` as the input bucket when deploying the Amazon Transcribe Post Call Analytics CloudFormation template and the output from this demo will feed into the input for that demo. Please reference that repository for more information on requirements, what is built, and how it works.
+
+Direct Cloudformation deployment for Amazon Transcribe Post Call Analytics:
+
+| Region name           | Region code | Launch                                                                                                                                                                                                                                                                                                                                               |
+| --------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| US East (N. Virginia) | us-east-1   | [![Launch Stack](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3.us-east-1.amazonaws.com/aws-ml-blog-us-east-1/artifacts/pca/pca-main.yaml&stackName=PostCallAnalytics) |
 
 ## Description
 
