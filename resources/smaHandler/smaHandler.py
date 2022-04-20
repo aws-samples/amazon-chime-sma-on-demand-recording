@@ -305,7 +305,7 @@ def start_call_recording(call_id):
         "Parameters": {
             "CallId": call_id,
             "Track": "BOTH",
-            "Destination": {"Type": "S3", "Location": recording_bucket + "/recordings"},
+            "Destination": {"Type": "S3", "Location": recording_bucket + "/originalAudio"},
         },
     }
 

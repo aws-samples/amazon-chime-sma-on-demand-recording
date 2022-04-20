@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+Object {
+  "Outputs": Object {
+    "recordingBucket": Object {
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "InfrastructureNestedStackInfrastructureNestedStackResourceF1F3BC3A",
+          "Outputs.testInfrastructurerecordingBucket744650E1Ref",
+        ],
+      },
+    },
+    "recordingNumber": Object {
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "ChimeNestedStackChimeNestedStackResourceA7BF938A",
+          "Outputs.testChimesmaPhoneNumberChimePhoneNumberChimeCustomResource44079A66phoneNumber",
+        ],
+      },
+    },
+  },
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+    "sourcePhoneNumber": Object {
+      "Description": "Source Phone Number",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "ChimeNestedStackChimeNestedStackResourceA7BF938A": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Parameters": Object {
+          "referencetotestInfrastructureNestedStackInfrastructureNestedStackResource7DC19DA0OutputstestInfrastructurecallRecordsTable15689C29Ref": Object {
+            "Fn::GetAtt": Array [
+              "InfrastructureNestedStackInfrastructureNestedStackResourceF1F3BC3A",
+              "Outputs.testInfrastructurecallRecordsTable15689C29Ref",
+            ],
+          },
+          "referencetotestInfrastructureNestedStackInfrastructureNestedStackResource7DC19DA0OutputstestInfrastructureoutgoingWav790538C8Ref": Object {
+            "Fn::GetAtt": Array [
+              "InfrastructureNestedStackInfrastructureNestedStackResourceF1F3BC3A",
+              "Outputs.testInfrastructureoutgoingWav790538C8Ref",
+            ],
+          },
+          "referencetotestInfrastructureNestedStackInfrastructureNestedStackResource7DC19DA0OutputstestInfrastructurerecordingBucket744650E1Arn": Object {
+            "Fn::GetAtt": Array [
+              "InfrastructureNestedStackInfrastructureNestedStackResourceF1F3BC3A",
+              "Outputs.testInfrastructurerecordingBucket744650E1Arn",
+            ],
+          },
+          "referencetotestInfrastructureNestedStackInfrastructureNestedStackResource7DC19DA0OutputstestInfrastructurerecordingBucket744650E1Ref": Object {
+            "Fn::GetAtt": Array [
+              "InfrastructureNestedStackInfrastructureNestedStackResourceF1F3BC3A",
+              "Outputs.testInfrastructurerecordingBucket744650E1Ref",
+            ],
+          },
+          "referencetotestsourcePhoneNumber08894BFARef": Object {
+            "Ref": "sourcePhoneNumber",
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              Object {
+                "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+              },
+              "/db4f0fb938f2f040ba3dbdb7e9d9bff822d0fb3502de09883229b2ecca0c022c.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "InfrastructureNestedStackInfrastructureNestedStackResourceF1F3BC3A": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              Object {
+                "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+              },
+              "/bc56c7f980610e083e7a02010f1365f335335ab10f614bebd598bd854185f008.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ParametersNestedStackParametersNestedStackResource072011BB": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Parameters": Object {
+          "referencetotestsourcePhoneNumber08894BFARef": Object {
+            "Ref": "sourcePhoneNumber",
+          },
+        },
+        "TemplateURL": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://s3.",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              Object {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              Object {
+                "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+              },
+              "/ac94ba27128687e4057abc199dec0fbe49bb8be9ef44b71da849a966c7d1ce53.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
