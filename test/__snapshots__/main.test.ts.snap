@@ -15,7 +15,7 @@ Object {
       "Value": Object {
         "Fn::GetAtt": Array [
           "ChimeNestedStackChimeNestedStackResourceA7BF938A",
-          "Outputs.testChimesmaPhoneNumberChimePhoneNumberChimeCustomResource44079A66phoneNumber",
+          "Outputs.testChimesmaPhoneNumberChimePhoneNumberpstnCustomResource27A286CFphoneNumber",
         ],
       },
     },
@@ -80,7 +80,7 @@ Object {
               Object {
                 "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
               },
-              "/a64c7941e05356818e597e0bbf57b78ceac0bd1c6f4a884b22fcf389b741cc5f.json",
+              "/6f441c7fa6334fcf20faaf25a29906ad62f8237c8ef83fe81e5f52fe09164a05.json",
             ],
           ],
         },
@@ -107,7 +107,7 @@ Object {
               Object {
                 "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
               },
-              "/969f451408eeec3041547c3ab78316feaad28cdcaba404d1e66113b2ebf77dd3.json",
+              "/4bcdc945075c9dd9fa17daa7aee9e96cfa6179b5f84c06314189d8b708096faf.json",
             ],
           ],
         },
