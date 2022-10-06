@@ -25,7 +25,7 @@ fi
 echo ""
 echo "Getting Parameters"
 SourcePhone=$( aws ssm get-parameters --names /chimeSMARecording/sourcePhoneNumber | jq -r '.Parameters[0].Value' )
-if [ $SourcePhone == "null" ]; then
+if [[ $SourcePhone == "null" ]]; then
   while  [[ !($SourcePhone =~ $PhoneRegex) ]]; do
     read -p "Valid E.164 phone number needed (Ex: +13125551212): " SourcePhone
   done
@@ -41,10 +41,8 @@ yarn projen build
 echo ""
 echo "Bootstrapping CDK"
 echo ""
-cdk bootstrap
+yarn cdk bootstrap
 echo ""
 echo "Deploying CDK"
 echo ""
-cdk deploy --parameters emailSubscription=$EmailSub --parameters sourcePhoneNumber=$SourcePhone
-
-
+yarn cdk deploy --parameters emailSubscription=$EmailSub --parameters sourcePhoneNumber=$SourcePhone
