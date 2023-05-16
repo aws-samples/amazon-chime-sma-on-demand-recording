@@ -277,16 +277,6 @@ def play_audio_and_get_digits(call_id):
     }
 
 
-def play_this_call_is_being_recorded(call_id):
-    return {
-        "Type": "PlayAudio",
-        "Parameters": {
-            "CallId": call_id,
-            "AudioSource": {"Type": "S3", "BucketName": wav_bucket, "Key": "thisCallIsBeingRecorded.wav"},
-        },
-    }
-
-
 def pause_call_recording(call_id):
     return {"Type": "PauseCallRecording", "Parameters": {"CallId": call_id}}
 

@@ -22,9 +22,14 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   name: 'amazon-chime-sma-on-demand-recording',
   eslintOptions: { ignorePatterns: ['resources/**'] },
   deps: ['cdk-amazon-chime-resources'],
-  scripts: {
-    launch: './deploy.sh',
-  },
+});
+
+project.addTask('launch', {
+  exec: 'yarn && yarn projen && yarn build && yarn cdk bootstrap && yarn checkNumber',
+});
+
+project.addTask('checkNumber', {
+  exec: './checkNumber.sh',
 });
 
 const common_exclude = [

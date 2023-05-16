@@ -1,19 +1,17 @@
-import { NestedStackProps, NestedStack, RemovalPolicy } from 'aws-cdk-lib';
+import { RemovalPolicy } from 'aws-cdk-lib';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 
-interface InfrastructureProps extends NestedStackProps {}
-
-export class Infrastructure extends NestedStack {
+export class Infrastructure extends Construct {
   public callRecordsTable: dynamodb.Table;
   public outgoingWav: s3.Bucket;
   public recordingBucket: s3.Bucket;
 
-  constructor(scope: Construct, id: string, props: InfrastructureProps) {
-    super(scope, id, props);
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
 
     this.callRecordsTable = new dynamodb.Table(this, 'callRecordsTable', {
       partitionKey: {
@@ -29,6 +27,7 @@ export class Infrastructure extends NestedStack {
       publicReadAccess: false,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
+      objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
     });
 
     new s3deploy.BucketDeployment(this, 'WavDeploy', {
@@ -56,6 +55,7 @@ export class Infrastructure extends NestedStack {
       publicReadAccess: false,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
+      objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
     });
 
     const recordingBucketPolicy = new iam.PolicyStatement({

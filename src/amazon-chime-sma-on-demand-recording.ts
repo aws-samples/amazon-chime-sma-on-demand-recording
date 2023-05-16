@@ -14,13 +14,15 @@ export class OnDemandRecording extends Stack {
     });
 
     new Parameters(this, 'Parameters', {
-      sourcePhoneNumber: sourcePhoneNumber.valueAsString,
+      sourcePhoneNumber:
+        sourcePhoneNumber.valueAsString || 'REPLACE_WITH_SOURCE_NUMBER',
     });
 
-    const infrastructure = new Infrastructure(this, 'Infrastructure', {});
+    const infrastructure = new Infrastructure(this, 'Infrastructure');
 
     const chime = new Chime(this, 'Chime', {
-      sourcePhoneNumber: sourcePhoneNumber.valueAsString,
+      sourcePhoneNumber:
+        sourcePhoneNumber.valueAsString || 'REPLACE_WITH_SOURCE_NUMBER',
       outgoingWav: infrastructure.outgoingWav,
       recordingBucket: infrastructure.recordingBucket,
       callRecordsTable: infrastructure.callRecordsTable,

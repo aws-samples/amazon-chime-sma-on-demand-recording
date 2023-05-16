@@ -10,7 +10,6 @@ This demo will build and configure several services within AWS so that you can r
 
 - node V12+ [installed](https://nodejs.org/en/download/)
 - yarn [installed](https://yarnpkg.com/getting-started/install)
-- jq [installed](https://stedolan.github.io/jq/download/)
 - AWS CLI [installed](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 - Deployment must be done in us-east-1
 - SourcePhone - an E.164 number used as the primary number that will used as the primary phone number

@@ -1,24 +1,24 @@
-import { NestedStackProps, NestedStack } from 'aws-cdk-lib';
+import { Stack } from 'aws-cdk-lib';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as chime from 'cdk-amazon-chime-resources';
 import { Construct } from 'constructs';
-interface ChimeProps extends NestedStackProps {
+
+interface ChimeProps {
   readonly sourcePhoneNumber: string;
-  // readonly emailSubscription: string;
   outgoingWav: s3.Bucket;
   recordingBucket: s3.Bucket;
   callRecordsTable: dynamodb.Table;
 }
 
-export class Chime extends NestedStack {
+export class Chime extends Construct {
   public smaHandler: lambda.Function;
   public recordingNumber: string;
 
   constructor(scope: Construct, id: string, props: ChimeProps) {
-    super(scope, id, props);
+    super(scope, id);
 
     const smaLambdaRole = new iam.Role(this, 'smaLambdaRole', {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
@@ -40,7 +40,7 @@ export class Chime extends NestedStack {
     });
 
     this.smaHandler = new lambda.Function(this, 'smaHandler', {
-      code: lambda.Code.fromAsset('resources/smaHandler'),
+      code: lambda.Code.fromAsset('src/resources/smaHandler'),
       architecture: lambda.Architecture.ARM_64,
       handler: 'smaHandler.lambda_handler',
       runtime: lambda.Runtime.PYTHON_3_9,
@@ -62,7 +62,7 @@ export class Chime extends NestedStack {
       phoneNumberType: chime.PhoneNumberType.LOCAL,
     });
     const sipMediaApp = new chime.ChimeSipMediaApp(this, 'sipMediaApp', {
-      region: this.region,
+      region: Stack.of(this).region,
       endpoint: this.smaHandler.functionArn,
     });
 
@@ -71,7 +71,7 @@ export class Chime extends NestedStack {
       triggerValue: phoneNumber.phoneNumber,
       targetApplications: [
         {
-          region: this.region,
+          region: Stack.of(this).region,
           priority: 1,
           sipMediaApplicationId: sipMediaApp.sipMediaAppId,
         },

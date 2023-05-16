@@ -28,6 +28,14 @@
       "name": "bundle",
       "description": "Prepare assets"
     },
+    "checkNumber": {
+      "name": "checkNumber",
+      "steps": [
+        {
+          "exec": "./checkNumber.sh"
+        }
+      ]
+    },
     "clobber": {
       "name": "clobber",
       "description": "hard resets to HEAD of origin and cleans the local repo",
@@ -123,11 +131,29 @@
         }
       ]
     },
+    "install": {
+      "name": "install",
+      "description": "Install project dependencies and update lockfile (non-frozen)",
+      "steps": [
+        {
+          "exec": "yarn install --check-files"
+        }
+      ]
+    },
+    "install:ci": {
+      "name": "install:ci",
+      "description": "Install project dependencies using frozen lockfile",
+      "steps": [
+        {
+          "exec": "yarn install --check-files --frozen-lockfile"
+        }
+      ]
+    },
     "launch": {
       "name": "launch",
       "steps": [
         {
-          "exec": "./deploy.sh"
+          "exec": "yarn && yarn projen && yarn build && yarn cdk bootstrap && yarn checkNumber"
         }
       ]
     },

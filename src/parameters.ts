@@ -1,15 +1,13 @@
-import { NestedStackProps, NestedStack } from 'aws-cdk-lib';
-
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
 
-interface ParameterProps extends NestedStackProps {
+interface ParameterProps {
   readonly sourcePhoneNumber: string;
 }
 
-export class Parameters extends NestedStack {
+export class Parameters extends Construct {
   constructor(scope: Construct, id: string, props: ParameterProps) {
-    super(scope, id, props);
+    super(scope, id);
 
     new ssm.StringParameter(this, 'sourcePhoneNumberParameter', {
       parameterName: '/chimeSMARecording/sourcePhoneNumber',
